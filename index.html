@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/icon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/icon/favicon-16x16.png">
+    <link rel="manifest" href="assets/img/icon/site.webmanifest">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header class="header">
+        <h1 class="header__title">Capturando momentos, creando recuerdos</h1>
+        <p class="header__paragraph">Sumérgete en un mundo de creatividad y arte con nuestra colección de imágenes impresionantes</p>
+        <div class="header__wrapper">
+            <form action="#" class="header__form">
+                <label for="filter" class="header__label">Selecciona un filtro</label>
+                <select id="filter" class="header__select">
+                    <option value="">Selecciona una opción</option>
+                    <option value="Paisaje">Paisaje</option>
+                    <option value="Comida">Comida</option>
+                    <option value="Personas">Personas</option>
+                    <option value="Ciudad">Ciudad</option>
+                    <option value="Animales">Animales</option>
+                </select>
+            </form>
+            <button href="#" class="header__cta">Subir Imagen <i class="ri-arrow-right-line"></i></button>
+            <button href="#" class="header__cta-fixed"><i class="ri-add-line"></i></button>
+        </div>
+    </header>
+
+    <main class="main">
+        <section class="main__grid">
+            <article class="main__item tall">
+                <picture>
+                    <source media="(min-width: 768px)" srcset="assets/img/gallery/Image_1_Desktop.webp">
+                    <img src="assets/img/gallery/Image_1_Mobile.webp" alt="Construcción" class="main__img" data-filter="Ciudad" loading="lazy">
+                </picture>
+            </article>
+            <article class="main__item">
+                <picture>
+                    <source media="(min-width: 768px)" srcset="assets/img/gallery/Image_2_Desktop.webp">
+                    <img src="assets/img/gallery/Image_2_Mobile.webp" alt="Carretera" class="main__img" data-filter="Paisaje" loading="lazy">
+                </picture>
+            </article>
+            <article class="main__item tall">
+                <picture>
+                    <source media="(min-width: 768px)" srcset="assets/img/gallery/Image_3_Desktop.webp">
+                    <img src="assets/img/gallery/Image_3_Mobile.webp" alt="Paisaje con hojas" data-filter="Paisaje" class="main__img" loading="lazy">
+                </picture>
+            </article>
+            <article class="main__item wide">
+                <picture>
+                    <source media="(min-width: 768px)" srcset="assets/img/gallery/Image_4_Desktop.webp">
+                    <img src="assets/img/gallery/Image_4_Mobile.webp" alt="Arbol" data-filter="Paisaje" class="main__img" loading="lazy">
+                </picture>
+            </article>
+            <article class="main__item large">
+                <picture>
+                    <source media="(min-width: 768px)" srcset="assets/img/gallery/Image_5_Desktop.webp">
+                    <img src="assets/img/gallery/Image_5_Mobile.webp" alt="Paisaje de un bosque junto a un rio" data-filter="Paisaje" class="main__img" loading="lazy">
+                </picture>
+            </article>
+            <article class="main__item tall">
+                <picture>
+                    <source media="(min-width: 768px)" srcset="assets/img/gallery/Image_6_Desktop.webp">
+                    <img src="assets/img/gallery/Image_6_Mobile.webp" alt="Montaña" class="main__img" data-filter="Paisaje" loading="lazy">
+                </picture>
+            </article>
+            <article class="main__item large">
+                <picture>
+                    <source media="(min-width: 768px)" srcset="assets/img/gallery/Image_7_Desktop.webp">
+                    <img src="assets/img/gallery/Image_7_Mobile.webp" alt="Puerto sobre el agua" class="main__img" data-filter="Paisaje" loading="lazy">
+                </picture>
+            </article>
+            <article class="main__item">
+                <picture>
+                    <source media="(min-width: 768px)" srcset="assets/img/gallery/Image_8_Desktop.webp">
+                    <img src="assets/img/gallery/Image_8_Mobile.webp" alt="Bosque" class="main__img" data-filter="Paisaje" loading="lazy">
+                </picture>
+            </article>
+            <article class="main__item">
+                <picture>
+                    <source media="(min-width: 768px)" srcset="assets/img/gallery/Image_9_Desktop.webp">
+                    <img src="assets/img/gallery/Image_9_Mobile.webp" alt="Bosque con arboles de tonalidades naranjas" data-filter="Paisaje" class="main__img" loading="lazy">
+                </picture>
+            </article>
+            <article class="main__item tall">
+                <picture>
+                    <source media="(min-width: 768px)" srcset="assets/img/gallery/Image_10_Desktop.webp">
+                    <img src="assets/img/gallery/Image_10_Mobile.webp" alt="Montaña" class="main__img" data-filter="Paisaje" loading="lazy">
+                </picture>
+            </article>
+            <article class="main__item">
+                <picture>
+                    <source media="(min-width: 768px)" srcset="assets/img/gallery/Image_11_Desktop.webp">
+                    <img src="assets/img/gallery/Image_11_Mobile.webp" alt="Cascada" class="main__img" data-filter="Paisaje" loading="lazy">
+                </picture>
+            </article>
+            <article class="main__item">
+                <picture>
+                    <source media="(min-width: 768px)" srcset="assets/img/gallery/Image_12_Desktop.webp">
+                    <img src="assets/img/gallery/Image_12_Mobile.webp" alt="Río con reflejo de montaña" data-filter="Paisaje" class="main__img" loading="lazy">
+                </picture>
+            </article>
+            <article class="main__item wide">
+                <picture>
+                    <source media="(min-width: 768px)" srcset="assets/img/gallery/Image_13_Desktop.webp">
+                    <img src="assets/img/gallery/Image_13_Mobile.webp" alt="Comida" class="main__img" data-filter="Comida" loading="lazy">
+                </picture>
+            </article>
+            <article class="main__item">
+                <picture>
+                    <source media="(min-width: 768px)" srcset="assets/img/gallery/Image_14_Desktop.webp">
+                    <img src="assets/img/gallery/Image_14_Mobile.webp" alt="Río con reflejo de montaña" data-filter="Paisaje" class="main__img" loading="lazy">
+                </picture>
+            </article>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer__top">
+            <figure class="footer__figure">
+                <img src="assets/img/Logo.png" alt="Logo" class="footer__img">
+            </figure>
+            <ul class="footer__links">
+                <li class="footer__link"><a href="#" aria-label="Ir al inicio de la web">Inicio</a></li>
+                <li class="footer__link"><a href="#" aria-label="Ir a la Galería de Imagenes">Galería</a></li>
+                <li class="footer__link"><button aria-label="Subir Imagen a la Galería de Imagenes">Subir Imagen</button></li>
+                <li class="footer__link"><a href="#" aria-label="Ir al portafolio del desarrollador">Porfafolio</a></li>
+            </ul>
+            <ul class="footer__socials">
+                <li class="footer__social"><a href="#" aria-label="Ir al canal de Youtube"><i class="ri-youtube-fill"></i></a></li>
+                <li class="footer__social"><a href="#" aria-label="Ir al repositiorio de Github"><i class="ri-github-fill"></i></a></li>
+            </ul>
+        </div>
+        <div class="footer__bottom">
+            <p class="footer__copy">Copyright &copy; 2024 Todo Código</p>
+        </div>
+    </footer>
+</body>
+</html>
