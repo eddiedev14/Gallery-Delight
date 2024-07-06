@@ -13,7 +13,8 @@ const modalImgCard = document.querySelector(".modal__img-card");
 const modalImgTitle = document.querySelector(".modal__img-content__title");
 const modalImgDescription = document.querySelector(".modal__img-content__paragraph");
 const closeModalImgBtn = document.querySelector(".modal__img-button");
-const modalImgDownloadBtn = document.querySelector(".modal__img-content__button")
+const modalImgDownloadBtn = document.querySelector(".modal__img-content__button--download");
+const modalImgDeleteBtn = document.querySelector(".modal__img-content__button--remove");
 
 //*Modal Form
 const modalUpload = document.querySelector(".modal__upload");
@@ -42,6 +43,7 @@ function loadEventListeners() {
     })
     modalImg.addEventListener("keydown", (e) => { if (e.keyCode === 27) { closeModal(modalImg); } });
     closeModalImgBtn.addEventListener("click", () => closeModal(modalImg));
+    modalImgDeleteBtn.addEventListener("click", removeImage);
 
     //*Functions for the upload form
 
@@ -111,6 +113,7 @@ function openModalImg(e) {
     const imgSource = imgElement.src;
     const imgSourceDownload = imgElement.previousElementSibling ? imgElement.previousElementSibling.srcset : imgElement.src;
     const articleParent = imgElement.previousElementSibling ? imgElement.parentElement.parentElement : imgElement.parentElement;
+    articleParent.dataset.showing = true;
     
     if (articleParent.classList.contains("tall")) {
         modalImgCard.style.aspectRatio = "9/16";
@@ -141,9 +144,36 @@ function closeModal(modal, isForm = null) {
             modalForm.reset();
             fileText.textContent = "Selecciona tu Fotografía";
             fileInputContainer.ariaLabel = "Selecciona tu Fotografía";
+        }else{
+            let imageShowed = document.querySelector(".main__item[data-showing = 'true']");
+            if (imageShowed) { imageShowed.removeAttribute("data-showing"); }
         }
     }, 450);
 }
+
+//Function to remove the image from the DOM
+function removeImage(e) {
+    Swal.fire({
+        title: "¿Deseas eliminar la imagen de la Galería?",
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "Eliminar",
+        denyButtonText: `No eliminar`,
+        cancelButtonText: `Cancelar`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+            document.querySelector(".main__item[data-showing = 'true']").remove();
+            Swal.fire({
+                title: "Imagen Eliminada",
+                text: "La imagen ha sido eliminada de la Galería",
+                icon: "success"
+            });
+            closeModal(modalImg);
+        }
+    });
+}
+
+//*Functions for the modal upload
 
 //Function to open the file input
 function openFileInput(e) {
@@ -157,6 +187,7 @@ function handleFileText(e) {
     fileInputContainer.ariaLabel = "La imagen seleccionada es: " + e.target.files[0].name;
 }
 
+//Function to update the character counter
 function updateCharacterCounter(e) {
     counterText.textContent = `Contador de Caracteres: ${e.target.value.length}/100`;
 }

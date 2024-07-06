@@ -410,13 +410,23 @@ input, select, label, button{
     width: 30px;
     height: 30px;
     border-radius: 6px;
-    background-color: #19AB4F;
     color: #fff;
     font-size: 1em;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: .3s ease-in-out transform;
+    border: none;
+    cursor: pointer;
+}
+
+.modal__img-content__button--download{
+    background-color: #19AB4F;
+    right: 55px;
+}
+
+.modal__img-content__button--remove{
+    background-color: #FD3D39;
 }
 
 .modal__img-content__button:focus, .modal__img-content__button:hover{
