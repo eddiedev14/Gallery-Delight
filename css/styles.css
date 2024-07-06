@@ -112,11 +112,67 @@ input, select, label, button{
 
 .main__grid{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(120px, 300px));
     grid-auto-rows: 80px;
     gap: 6px;
     grid-auto-flow: dense;
     justify-content: center;
+}
+
+.main__grid:has(.main__item--empty.show){
+    grid-auto-rows: 160px;
+}
+
+.main__grid.disappear{
+    animation: disappear .5s ease-in-out forwards;
+}
+
+.main__grid.appear{
+    animation: appear .5s ease-in-out forwards;
+}
+
+@keyframes disappear {
+    0%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+
+@keyframes appear {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+.main__item--empty{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+}
+
+.main__figure{
+    width: 120px;
+}
+
+.main__svg{
+    width: 100%;
+}
+
+.main__title{
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.main__item--empty.show{
+    display: flex;
 }
 
 .main__img{
@@ -555,6 +611,11 @@ input, select, label, button{
 
     .header__paragraph{
         font-size: 1em;
+    }
+
+    .main__title{
+        font-size: 1em;
+        font-weight: 600;
     }
 
     .modal__upload-card{

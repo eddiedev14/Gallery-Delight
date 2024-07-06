@@ -1,9 +1,11 @@
 //*Create the variables
 const grid = document.querySelector(".main__grid")
-let images = document.querySelectorAll(".main__img");
+const images = document.querySelectorAll(".main__img");
 const uploadImageBtn = document.querySelector(".header__cta");
 const fixedUploadImageBtn = document.querySelector(".header__cta-fixed");
 const footerUploadImageBtn = document.querySelector(".footer__link-upload");
+const filterSelect = document.querySelector("#filter");
+const emptyGridItem = document.querySelector(".main__item--empty")
 
 //*Modal Img
 const modalImg = document.querySelector(".modal__img");
@@ -31,6 +33,9 @@ const counterText = document.querySelector(".modal__form-counter")
 document.addEventListener("DOMContentLoaded", loadEventListeners)
 
 function loadEventListeners() {
+    //*Functions for filtering
+    filterSelect.addEventListener("change", filterImages);
+
     //*Functions for the modal image
     images.forEach(image => {
         image.addEventListener("click", openModalImg);
@@ -54,6 +59,46 @@ function loadEventListeners() {
     fileInput.addEventListener("change", handleFileText);
     imageDescriptionInput.addEventListener("keyup", updateCharacterCounter);
     modalForm.addEventListener("submit", handleFormSubmit);
+}
+
+//*Functions for filtering
+function filterImages(e) {
+    const filterValue = e.target.value;
+    const currentImages = document.querySelectorAll(`.main__item`);
+    let filteredImagesLength = 0;
+
+    //If the empty grid item is showing, we hide it
+    if (emptyGridItem.classList.contains("show")) {
+        setTimeout(() => { emptyGridItem.classList.remove("show") }, 500);
+    }
+
+    grid.classList.add("disappear");
+    
+    setTimeout(() => {
+        currentImages.forEach(image => {
+            const imgElement = image.querySelector('.main__img');
+            //The isFilterMatch variable will be true if the filter value is empty or if the filter matches the selected value; otherwise it will be false.
+            const isFilterMatch = filterValue === '' || imgElement.getAttribute('data-filter') === filterValue;
+
+            image.style.display = isFilterMatch ? 'block' : 'none';
+            image.dataset.visible = isFilterMatch;
+
+            if (isFilterMatch) {
+                filteredImagesLength++;
+            }
+        });
+
+        grid.classList.replace('disappear', 'appear');
+
+        if (filteredImagesLength === 0){
+            emptyGridItem.classList.add("show")
+        }
+        else if (filteredImagesLength === 1) {
+            document.querySelector('.main__item[data-visible = "true"]').style.maxWidth = '300px';
+        }
+    }, 500);
+    //Remove the class appear
+    grid.classList.remove("appear");
 }
 
 //*Functions for the modal image
@@ -92,7 +137,11 @@ function closeModal(modal, isForm = null) {
     setTimeout(() => {
         modal.close()
         modal.classList.remove("closing");
-        if (isForm) { modalForm.reset(); }
+        if (isForm) { 
+            modalForm.reset();
+            fileText.textContent = "Selecciona tu Fotografía";
+            fileInputContainer.ariaLabel = "Selecciona tu Fotografía";
+        }
     }, 450);
 }
 
@@ -105,7 +154,7 @@ function openFileInput(e) {
 //Function to change the text of the label when something is selected in the file input
 function handleFileText(e) {
     fileText.textContent = e.target.files[0].name;
-    fileText.ariaLabel = "La imagen seleccionada es: " + e.target.files[0].name;
+    fileInputContainer.ariaLabel = "La imagen seleccionada es: " + e.target.files[0].name;
 }
 
 function updateCharacterCounter(e) {
