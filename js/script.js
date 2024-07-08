@@ -27,7 +27,6 @@ const fileText = document.querySelector(".modal__form-label");
 const imageNameInput = document.querySelector("#name");
 const imageDescriptionInput = document.querySelector("#description");
 const imageCategorieInput = document.querySelector("#categorie");
-const imageSizeInput = document.querySelector("#size");
 const counterText = document.querySelector(".modal__form-counter")
 
 //Function that runs to load all events
@@ -198,7 +197,7 @@ function updateCharacterCounter(e) {
 function handleFormSubmit(e) {
     e.preventDefault();
     
-    if (fileInput.files.length === 0 || imageNameInput.value === "" || imageDescriptionInput.value === "" || imageCategorieInput.value === "" || imageSizeInput.value === "") {
+    if (fileInput.files.length === 0 || imageNameInput.value === "" || imageDescriptionInput.value === "" || imageCategorieInput.value === "") {
         Swal.fire({
             title: "Error",
             text: "Asegurate de llenar todos los campos",
@@ -208,20 +207,50 @@ function handleFormSubmit(e) {
 
     //Obtaining the image url
     let imgUrl = URL.createObjectURL(fileInput.files[0]);
+    //Create a new Image Object
+    let img = new Image();
+    //Set the src of the Image object to the image 
+    img.src = imgUrl;
 
-    //Creating the grid item
-    let gridItem = document.createElement("article");
-    gridItem.classList.add("main__item");
-    if (imageSizeInput.value !== "normal") { gridItem.classList.add(imageSizeInput.value) }
-    gridItem.innerHTML = `<figure class="main__item-figure">
-                            <img src="${imgUrl}" alt="${imageDescriptionInput.value}" class="main__img" data-filter="${imageCategorieInput.value}" data-title="${imageNameInput.value}" loading="lazy" onclick="openModalImg(this)">
-                          </figure>`;
-    grid.appendChild(gridItem);
+    //Wait for the image load
+    img.onload = () => {
+        //Get the width and height of the image
+        const width = img.width;
+        const height = img.height;
+        let imgClass = "";
 
-    Swal.fire({
-        title: "Imagen subida",
-        text: "La imagen se ha subido correctamente",
-        icon: "success"
-    });
-    closeModal(modalUpload, true);
+        //Make comparisions to return a class or another
+        if (width >= 1280 & height >= 1280) {
+            imgClass = "large";
+        }else if (width > height) {
+            imgClass = "wide";
+        }else if (width < height) {
+            imgClass = "tall";
+        }
+
+        //Creating the grid item
+        let gridItem = document.createElement("article");
+        gridItem.classList.add("main__item");
+        if (imgClass !== "") { gridItem.classList.add(imgClass) }
+        gridItem.innerHTML = `<figure class="main__item-figure">
+                                <img src="${imgUrl}" alt="${imageDescriptionInput.value}" class="main__img" data-filter="${imageCategorieInput.value}" data-title="${imageNameInput.value}" loading="lazy" onclick="openModalImg(this)">
+                            </figure>`;
+        grid.appendChild(gridItem);
+
+        Swal.fire({
+            title: "Imagen subida",
+            text: "La imagen se ha subido correctamente",
+            icon: "success"
+        });
+        closeModal(modalUpload, true);
+    }
+
+    //If the image fails to load
+    img.onerror = () => {
+        Swal.fire({
+            title: "Error",
+            text: "La imagen no se ha podido subir",
+            icon: "error"
+        });
+    }
 }
