@@ -175,6 +175,10 @@ input, select, label, button{
     display: flex;
 }
 
+.main__item-figure{
+    height: 100%;
+}
+
 .main__img{
     width: 100%;
     height: 100%;

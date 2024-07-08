@@ -64,8 +64,8 @@ function loadEventListeners() {
 }
 
 //*Functions for filtering
-function filterImages(e) {
-    const filterValue = e.target.value;
+function filterImages(e, currentFilterValue = null) {
+    const filterValue = currentFilterValue ? currentFilterValue : e.target.value;
     const currentImages = document.querySelectorAll(`.main__item`);
     let filteredImagesLength = 0;
 
@@ -82,6 +82,7 @@ function filterImages(e) {
             //The isFilterMatch variable will be true if the filter value is empty or if the filter matches the selected value; otherwise it will be false.
             const isFilterMatch = filterValue === '' || imgElement.getAttribute('data-filter') === filterValue;
 
+            //If the image is visible, we show it; otherwise we hide it.
             image.style.display = isFilterMatch ? 'block' : 'none';
             image.dataset.visible = isFilterMatch;
 
@@ -111,8 +112,7 @@ function openModalImg(e) {
 
     //Before showing the modal we need to obtain the src from the image and the class to define the aspect-ratio
     const imgSource = imgElement.src;
-    const imgSourceDownload = imgElement.previousElementSibling ? imgElement.previousElementSibling.srcset : imgElement.src;
-    const articleParent = imgElement.previousElementSibling ? imgElement.parentElement.parentElement : imgElement.parentElement;
+    const articleParent = imgElement.parentElement.parentElement;
     articleParent.dataset.showing = true;
     
     if (articleParent.classList.contains("tall")) {
@@ -128,8 +128,8 @@ function openModalImg(e) {
 
     //Place the image in the background
     modalImgCard.style.backgroundImage = `url(${imgSource})`;
-    modalImgDownloadBtn.href = imgSourceDownload;
-    modalImgTitle.textContent = imgElement.getAttribute("data-title");
+    modalImgDownloadBtn.href = imgSource;
+    modalImgTitle.textContent = imgElement.dataset.title;
     modalImgDescription.textContent = imgElement.alt;
     modalImg.show();
 }
@@ -169,6 +169,8 @@ function removeImage(e) {
                 icon: "success"
             });
             closeModal(modalImg);
+            //Reload the images with the filter value selected
+            filterImages(null, filterSelect.value);
         }
     });
 }
@@ -211,7 +213,9 @@ function handleFormSubmit(e) {
     let gridItem = document.createElement("article");
     gridItem.classList.add("main__item");
     if (imageSizeInput.value !== "normal") { gridItem.classList.add(imageSizeInput.value) }
-    gridItem.innerHTML = `<img src="${imgUrl}" alt="${imageDescriptionInput.value}" class="main__img" data-filter="${imageCategorieInput.value}" data-title="${imageNameInput.value}" loading="lazy" onclick="openModalImg(this)">`
+    gridItem.innerHTML = `<figure class="main__item-figure">
+                            <img src="${imgUrl}" alt="${imageDescriptionInput.value}" class="main__img" data-filter="${imageCategorieInput.value}" data-title="${imageNameInput.value}" loading="lazy" onclick="openModalImg(this)">
+                          </figure>`;
     grid.appendChild(gridItem);
 
     Swal.fire({
