@@ -231,8 +231,8 @@ input, textarea, select, label, button{
 }
 
 .footer__img{
-    width: 45px;
-    height: 45px;
+    width: 100%;
+    height: 100%;
 }
 
 .footer__links, .footer__socials{
@@ -711,11 +711,6 @@ input, textarea, select, label, button{
     .footer__figure{
         width: 80px;
         height: 80px;
-    }
-    
-    .footer__img{
-        width: 65px;
-        height: 65px;
     }
     
     .footer__socials{
