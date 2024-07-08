@@ -1,6 +1,6 @@
 //*Create the variables
 const grid = document.querySelector(".main__grid")
-const images = document.querySelectorAll(".main__img");
+const images = document.querySelectorAll(".main__item");
 const uploadImageBtn = document.querySelector(".header__cta");
 const fixedUploadImageBtn = document.querySelector(".header__cta-fixed");
 const footerUploadImageBtn = document.querySelector(".footer__link-upload");
@@ -39,6 +39,7 @@ function loadEventListeners() {
     //*Functions for the modal image
     images.forEach(image => {
         image.addEventListener("click", openModalImg);
+        image.addEventListener("keydown", openModalImgKeyboard);
     })
     modalImg.addEventListener("keydown", (e) => { if (e.keyCode === 27) { closeModal(modalImg); } });
     closeModalImgBtn.addEventListener("click", () => closeModal(modalImg));
@@ -107,7 +108,18 @@ function filterImages(e, currentFilterValue = null) {
 
 //Function to open the modal img
 function openModalImg(e) {
-    const imgElement = e.nodeName ? e : e.target;
+    let imgElement;
+
+    //Comparisons to assign the correct img element
+    if (e.keyCode) {
+        imgElement = e.target.querySelector(".main__img");
+    }else{
+        if (e.nodeName) {
+            imgElement = e;
+        }else{
+            imgElement = e.target;
+        }
+    }
 
     //Before showing the modal we need to obtain the src from the image and the class to define the aspect-ratio
     const imgSource = imgElement.src;
@@ -131,6 +143,13 @@ function openModalImg(e) {
     modalImgTitle.textContent = imgElement.dataset.title;
     modalImgDescription.textContent = imgElement.alt;
     modalImg.show();
+}
+
+//Function to open the modal img when the user presses the space key
+function openModalImgKeyboard(e) {
+    if (e.keyCode === 32) {
+        openModalImg(e);
+    }
 }
 
 //Function to close the modal img
@@ -231,6 +250,12 @@ function handleFormSubmit(e) {
         //Creating the grid item
         let gridItem = document.createElement("article");
         gridItem.classList.add("main__item");
+        //Giving accesible properties
+        gridItem.tabIndex = "0";
+        gridItem.ariaLabel  = imageDescriptionInput.value;
+        gridItem.role = "button";
+        //Adding an event when the users presses any key
+        gridItem.addEventListener("keydown", openModalImgKeyboard);
         if (imgClass !== "") { gridItem.classList.add(imgClass) }
         gridItem.innerHTML = `<figure class="main__item-figure">
                                 <img src="${imgUrl}" alt="${imageDescriptionInput.value}" class="main__img" data-filter="${imageCategorieInput.value}" data-title="${imageNameInput.value}" loading="lazy" onclick="openModalImg(this)">

@@ -16,7 +16,7 @@ body{
     gap: 30px;
 }
 
-input, select, label, button{
+input, textarea, select, label, button{
     font-family: "Plus Jakarta Sans", sans-serif;
 }
 
@@ -535,6 +535,12 @@ input, select, label, button{
     background-color: transparent;
     padding: 0 12px;
     transition: .3s ease-in-out background-color, .3s ease-in-out border;
+}
+
+.modal__form-input--textarea{
+    height: auto;
+    padding: 12px;
+    resize: none;
 }
 
 .modal__form-input:focus-visible, .modal__form-select:focus-visible{
