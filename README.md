@@ -6,7 +6,7 @@ Este proyecto es una galería de imágenes interactiva diseñada para mostrar un
 
 ## Demo
 
-[Demo](https://gallerydelight.vercel.app)
+[Demo](https://gallery-delight.vercel.app)
 
 
 ## Screenshots
